@@ -117,6 +117,9 @@ export const WithSource = (sourceReplid: string): VerifyOption => {
 	});
 };
 
+/**
+ * @internal
+ */
 class Verifier {
 	public claims?: MessageClaims;
 	public anyReplid?: boolean;
@@ -325,15 +328,24 @@ class Verifier {
 	}
 }
 
+/**
+ * @internal
+ */
 export { Verifier };
 
+/*
+ * @internal
+ */
 interface ChainResult {
 	verifier: Verifier;
 	bytes: Buffer;
 	cert: api.GovalCert;
 }
 
-// easy entry-point so you don't need to create a verifier yourself
+/**
+ * @internal
+ * easy entry-point so you don't need to create a verifier yourself
+ */
 export const verifyChain = async (token: string, getPubKey: PubKeySource): Promise<ChainResult> => {
 	const v = new Verifier();
 	const { verifiedBytes: bytes, cert } = await v.verifyChain(token, getPubKey);
@@ -381,3 +393,18 @@ export async function VerifyIdentity(
 
 	return identity;
 }
+
+// VerifyIdentityWithSource verifies that the given `REPL_IDENTITY` value is in fact
+// signed by Goval's chain of authority, and addressed to the provided audience
+// (the `REPL_ID` of the recipient). It also verifies that the identity's origin replID
+// matches the given source, if present. This can be used to enforce specific clients
+// in servers when verifying identities.
+export async function VerifyIdentityWithSource(message: string, audience: string, sourceReplid: string, getPubKey: PubKeySource): Promise<api.GovalReplIdentity> {
+	const identity = await VerifyIdentity(message, audience, getPubKey);
+	
+	if (identity.originReplid !== '' && identity.originReplid !== sourceReplid) {
+		throw new Error(`identity origin replid does not match. expected ${sourceReplid}; got ${identity.originReplid}`)
+	}
+
+	return identity;
+};

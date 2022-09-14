@@ -7,7 +7,6 @@ import type { ed25519 } from './encoding';
 export type PubKeySource = (keyid, issuer: string) => ed25519.PublicKey;
 
 /**
- * @internal
  * MessageClaims is a collection of indexable claims that are made by a certificate.
  */
 export interface MessageClaims {

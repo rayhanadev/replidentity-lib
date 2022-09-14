@@ -1,8 +1,7 @@
 {
 	"name": "replidentity",
-	"private": "true",
-	"version": "0.0.1",
-	"description": "",
+	"version": "0.0.5",
+	"description": "Provides verification utilities for Repl Identity tokens.",
 	"sideEffects": false,
 	"type": "module",
 	"main": "./dist/index.cjs",
@@ -33,16 +32,16 @@
 		"compile": "protoc -I=src/api --ts_out=src/api client.proto signing.proto"
 	},
 	"repository": {
-		"type": "",
-		"url": ""
+		"type": "git",
+		"url": "git://github.com/rayhanadev/replidentity-lib.git"
 	},
 	"keywords": [],
-	"author": "name <example@example.com> (https://example.com)",
+	"author": "Ray Arayilakath <rayhanadev@protonmail.com> (https://www.furret.codes)",
 	"license": "MIT",
 	"bugs": {
-		"url": ""
+		"url": "https://github.com/rayhanadev/replidentity-lib/issues"
 	},
-	"homepage": "",
+	"homepage": "https://github.com/rayhanadev/replidentity-lib",
 	"devDependencies": {
 		"@babel/core": "^7.15.8",
 		"@babel/plugin-transform-modules-commonjs": "^7.18.2",

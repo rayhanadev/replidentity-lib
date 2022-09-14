@@ -17,7 +17,6 @@ export const ReadPublicKeyFromEnv = (
 	return keyBytes;
 };
 
-// CreateIdentityTokenSigningAuthority creates a signing authority with this repl's identity key.
 export const CreateIdentityTokenSigningAuthority =
 	async (): Promise<NewSigningAuthority> => {
 		if (process.env.REPL_OWNER === 'five-nine') {

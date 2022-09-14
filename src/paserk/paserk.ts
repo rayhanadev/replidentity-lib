@@ -54,20 +54,33 @@ export const paserkPublicLength = 53;
  */
 export const paserkSecretLength = 96;
 
-// PASERKPublic is the serialized version of an [ed25519.PublicKey]:
-// https://github.com/paseto-standard/paserk/blob/master/types/public.md
+
+/**
+ * @internal
+ * PASERKPublic is the serialized version of an [ed25519.PublicKey]:
+ * https://github.com/paseto-standard/paserk/blob/master/types/public.md
+ */
 export type PASERKPublic = string;
 
-// PASERKSecret is the serialized version of an [ed25519.PrivateKey]:
-// https://github.com/paseto-standard/paserk/blob/master/types/secret.md
+/**
+ * @internal
+ * PASERKSecret is the serialized version of an [ed25519.PrivateKey]:
+ * https://github.com/paseto-standard/paserk/blob/master/types/secret.md
+ */
 export type PASERKSecret = string;
 
-// PublicKeyToPASERKPublic wraps an [ed25519.PublicKey] into its PASERK representation.
+/**
+ * @internal
+ * PublicKeyToPASERKPublic wraps an [ed25519.PublicKey] into its PASERK representation.
+ */
 export const PublicKeyToPASERKPublic = (pubkey: string): PASERKPublic => {
 	return PaserkPublicHeader + Buffer.from(pubkey).toString('base64');
 };
 
-// PASERKPublicToPublicKey unwraps an [ed25519.PublicKey] from its PASERK representation.
+/**
+ * @internal 
+ * PASERKPublicToPublicKey unwraps an [ed25519.PublicKey] from its PASERK representation.
+ */
 export const PASERKPublicToPublicKey = (
 	encoded: string,
 ): ed25519.PublicKey | null => {
@@ -91,12 +104,18 @@ export const PASERKPublicToPublicKey = (
 	return rawKeyData ? rawKeyData : null;
 };
 
-// PrivateKeyToPASERKSecret wraps an [ed25519.PrivateKey] into its PASERK representation.
+/**
+ * @internal
+ * PrivateKeyToPASERKSecret wraps an [ed25519.PrivateKey] into its PASERK representation.
+ */
 export const PrivateKeyToPASERKSecret = (privkey: string): PASERKSecret => {
 	return PaserkSecretHeader + Buffer.from(privkey).toString('base64');
 };
 
-// PASERKSecretToPrivateKey unwraps an [ed25519.PrivateKey] from its PASERK representation.
+/**
+ * @internal
+ * PASERKSecretToPrivateKey unwraps an [ed25519.PrivateKey] from its PASERK representation.
+ */
 export const PASERKSecretToPrivateKey = (
 	encoded: string,
 ): ed25519.PrivateKey | null => {
@@ -117,8 +136,11 @@ export const PASERKSecretToPrivateKey = (
 	return rawKeyData ? rawKeyData : null;
 };
 
-// paserkID implements the PASERK ID operation:
-// https://github.com/paseto-standard/paserk/blob/master/operations/ID.md
+/**
+ * @internal
+ * paserkID implements the PASERK ID operation:
+ * https://github.com/paseto-standard/paserk/blob/master/operations/ID.md
+ */
 export const paserkID = (header: string, data: string): string => {
 	const h = blake2b(33);
 	h.update(Buffer.from(header));
@@ -127,24 +149,32 @@ export const paserkID = (header: string, data: string): string => {
 	return header + h.digest('base64url');
 };
 
-// PaserkPID returns the PASERK ID of an [ed25519.PublicKey]:
-// https://github.com/paseto-standard/paserk/blob/master/types/pid.md
+/**
+ * @internal
+ * PaserkPID returns the PASERK ID of an [ed25519.PublicKey]:
+ * https://github.com/paseto-standard/paserk/blob/master/types/pid.md
+ */
 export const PaserkPID = (pubkey: string): string => {
 	return paserkID(PaserkPIDHeader, PublicKeyToPASERKPublic(pubkey));
 };
 
-// PaserkSID returns the PASERK ID of an [ed25519.PrivateKey]:
-// https://github.com/paseto-standard/paserk/blob/master/types/sid.md
+/**
+ * @internal
+ * PaserkSID returns the PASERK ID of an [ed25519.PrivateKey]:
+ * https://github.com/paseto-standard/paserk/blob/master/types/sid.md
+ */
 export const PaserkSID = (privkey: string): string => {
 	return paserkID(PaserkSIDHeader, PrivateKeyToPASERKSecret(privkey));
 };
 
-// PaserkGSAID returns the PASERK ID of a [api.GovalSigningAuthority]. This is a Replit
-// extension to PASERK.
+/**
+ * @internal
+ * PaserkGSAID returns the PASERK ID of a [api.GovalSigningAuthority]. This is a Replit
+ * extension to PASERK.
+ */
 export const PaserkGSAID = (authority: api.GovalSigningAuthority): string => {
 	const serializedCertProto = api.GovalSigningAuthority.fromObject(authority);
 
-	// FIXME: serialize signing authority to base64
 	const certSerialized = Buffer.from(
 		serializedCertProto.serializeBinary(),
 	).toString('base64url');

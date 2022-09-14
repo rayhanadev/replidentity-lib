@@ -12,4 +12,42 @@ From [go-replidentity](https://github.com/replit/go-replidentity)
 > 
 > Check the example at tests/identity.test.js for an example usage. You can also see this in action at https://replit.com/@RayhanADev/replidentity-lib. If you are logged in to Replit, you'll see your username when you click "Run" on the Cover Page - that's Repl Identity at work.
 
+## Install
+
+```sh
+# with NPM
+$ npm install replidentity
+
+# with Yarn
+$ yarn add replidentity
+```
+
+## Usage
+
+```js
+import * as replidentity from 'replidentity';
+
+async function main() {
+	let audience = 'another-cool-repl-id';
+	const identityToken = await replidentity.CreateIdentityTokenAddressedTo(audience);
+
+	const parsedIdentity = await replidentity.VerifyIdentity(
+		identityToken,
+		audience,
+		replidentity.ReadPublicKeyFromEnv,
+	);
+
+	console.log(`The identity token (${identityToken.length} bytes) is:`);
+	console.log(`
+  repl id:  ${parsedIdentity.replid}
+     user:  ${parsedIdentity.user}
+     slug:  ${parsedIdentity.slug}
+ audience:  ${parsedIdentity.aud}
+ephemeral:  ${parsedIdentity.ephemeral}
+   origin:  ${parsedIdentity.originReplid}`);
+}
+
+main();
+```
+
 For more information, visit [the blog post](https://blog.replit.com/repl-identity)!

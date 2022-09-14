@@ -1,0 +1,24 @@
+entrypoint = "src/index.ts"
+run = "yarn build && node tests/identity.test.js"
+
+[nix]
+channel = "stable-22_05"
+
+[env]
+XDG_CONFIG_HOME = "/home/runner/.config"
+PATH = "/home/runner/$REPL_SLUG/.config/bin:/home/runner/$REPL_SLUG/.config/npm/node_global/bin:$PATH"
+npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
+
+[packager]
+language = "nodejs"
+
+  [packager.features]
+  packageSearch = true
+  guessImports = true
+  enabledForHosting = false
+
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+
+  [languages.javascript.languageServer]
+  start = [ "typescript-language-server", "--stdio" ]

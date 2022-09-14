@@ -1,0 +1,15 @@
+{
+	"clearMocks": true,
+	"globals": {
+		"ts-jest": {
+			"tsconfig": "tsconfig.json"
+		}
+	},
+	"moduleFileExtensions": ["ts", "js"],
+	"testEnvironment": "node",
+	"transform": {
+		"^.+\\.(ts|tsx)$": "ts-jest",
+		"^.+\\.(m?js)$": "babel-jest"
+	},
+	"preset": "ts-jest/presets/js-with-babel"
+}

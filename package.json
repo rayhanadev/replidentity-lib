@@ -1,6 +1,6 @@
 {
 	"name": "replidentity",
-	"version": "0.0.5",
+	"version": "0.0.1",
 	"description": "Provides verification utilities for Repl Identity tokens.",
 	"sideEffects": false,
 	"type": "module",
@@ -35,7 +35,12 @@
 		"type": "git",
 		"url": "git://github.com/rayhanadev/replidentity-lib.git"
 	},
-	"keywords": [],
+	"keywords": [
+		"replit",
+		"replidentity",
+		"api",
+		"authentication"
+	],
 	"author": "Ray Arayilakath <rayhanadev@protonmail.com> (https://www.furret.codes)",
 	"license": "MIT",
 	"bugs": {

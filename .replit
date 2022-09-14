@@ -1,5 +1,5 @@
 entrypoint = "src/index.ts"
-run = "yarn build && node tests/identity.test.js"
+run = "node tests/identity.test.js"
 
 [nix]
 channel = "stable-22_05"
